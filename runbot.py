@@ -27,32 +27,32 @@ def send(id, message, keyboard = None):
         "random_id": random.randint(1, 2147483647)
     }
     if keyboard != None:
-        msg_options[keyboard] = keyboard.get_keyboard()
+        msg_options["keyboard"] = keyboard.get_keyboard()
     else:
         msg_options = msg_options
 
     vk.method("messages.send", msg_options)
-def create_keyboard():
-    keyboard = VkKeyboard()
-    keyboard.add_button("Первая", VkKeyboardColor.PRIMARY)
-    keyboard.add_line()
-    keyboard.add_button("Вторая", VkKeyboardColor.SECONDARY)
-    keyboard.add_line()
-    keyboard.add_button("Третья", VkKeyboardColor.POSITIVE)
-    keyboard.add_line()
-    return keyboard
 while True:
     try:
-        messages = vk.method("messages.getConversations", {"offset": 0, "count": 20, "filter": "unanswered"})
+        messages = vk.method("messages.getConversations", {"offset": 0, "count": 150, "filter": "unanswered"})
         id = messages["items"][0]["last_message"]["from_id"]
         body = messages["items"][0]["last_message"]["text"]
         if messages["count"] >= 1:
             if (body.lower() == "привет") or (body.lower() == "начать") or (body.lower() == "хай") or (body.lower() == "ку"):
-                keyboard = create_keyboard()
-                keyboard = {"one_time": True, "buttons": []}
-                send(id, "Вот мои комманды", keyboard)
-            else:
-                vk.method("messages.send", {"peer_id": id, "message": "Такой команды я не знаю :(", "random_id": random.randint(1, 2147483647)})
+                keyboard = VkKeyboard()
+                keyboard.add_button("О ТУСУР", VkKeyboardColor.PRIMARY)
+                keyboard.add_line()
+                keyboard.add_button("Учеба", VkKeyboardColor.PRIMARY)
+                keyboard.add_line()
+                keyboard.add_button("Жизнь в университете", VkKeyboardColor.PRIMARY)
+                keyboard.add_line()
+                keyboard.add_button("Карьера", VkKeyboardColor.PRIMARY)
+                keyboard.add_line()
+                keyboard.add_button("Справка", VkKeyboardColor.SECONDARY)
+                send(id, "Привет! Вот с чем я могу тебе помочь:", keyboard)
+            if (body == "Справка"):
+                send(id, "Бот создан с целью помочь студентам с поиском информации о университете.")
+                ##vk.method("messages.send", {"peer_id": id, "message": "Такой команды я не знаю :(", "random_id": random.randint(1, 2147483647)})
     except Exception as E:
         time.sleep(0)
 
