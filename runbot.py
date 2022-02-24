@@ -4,6 +4,9 @@ from vk_api.longpoll import VkLongPoll, VkEventType
 
 import random
 
+import parsing
+from parsing import news_events
+
 token = "f64dac7a2454d26a07f4a7081417fa6ba1ffd3cc4b3d13b83162f353c3dd780c752d5c342e3555e8790fe"
 
 main_keyboard = {
@@ -349,8 +352,7 @@ try:
                 elif event.text.lower() == "контакты 📙":
                     write_msg(event.user_id, "По любым вопросам можешь обращаться к:", contacts_keyboard)
                 elif event.text.lower() == "задать вопрос руководителю проекта":
-                    write_msg(event.user_id, "У тебя есть возможность написать сообщение нашему Руководителю проекта 👇",
-                              go_answer)
+                    write_msg(event.user_id, news_events("news relative"), go_answer) #fergtergsergtertetertertertet
                 elif event.text.lower() == "калькулятор 💡":
                     write_msg(event.user_id, "В разработке...", calc_keyboard)
                 # elif event.text == " ".join(re.findall('\d{2}', event.text)):
