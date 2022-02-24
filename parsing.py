@@ -1,72 +1,90 @@
 import requests
 from bs4 import BeautifulSoup
 
-# Главная / Новости и мероприятия
-url_main = 'https://tusur.ru/ru/novosti-i-meropriyatiya'
-
-# Главная / Новости и мероприятия / Новости
-url_news = 'https://tusur.ru/ru/novosti-i-meropriyatiya/novosti'
-
-# Главная / Новости и мероприятия / Жизнь в ТУСУРе
-url_tusur = 'https://tusur.ru/ru/novosti-i-meropriyatiya/jizn-v-tusure'
-
-# Главная / Новости и мероприятия / Анонсы мероприятий
-url_events = 'https://tusur.ru/ru/novosti-i-meropriyatiya/anonsy-meropriyatiy'
-
-# Расписание
-url_timetable = 'https://timetable.tusur.ru'
+url_main = 'https://tusur.ru'  # Главная
+url_timetable = 'https://timetable.tusur.ru'  # Расписание
+url_grades = 'https://ocenka.tusur.ru'  # Успеваемость обучающегося
 
 
 # Новости | Жизнь в ТУСУРе | Календарь мероприятий
-# class_name - одно из значений "news relative", "life-in-tusur relative", "events relative"
+# class_name - одно из значений 'news', 'life-in-tusur', 'events'
 def news_events(class_name):
     page = requests.get(url_main)
-    final_message: str = ""
-    # если запрос выполнен успешно, то код - 2xx
+    final_message = ''
     if page.status_code == 200:
         soup = BeautifulSoup(page.text, 'html.parser')
+        class_name = class_name + ' relative'
         items = soup.find(class_=class_name).findAll(class_='news-item')
+        url = url_main + soup.find(class_=class_name).find('a').get('href')
         news_item = []
         for item in items:
-            if class_name == "events relative":
+            if class_name == 'events relative':
                 news_item.append(item.find(class_='strong').get_text(" ", strip=True))
             else:
                 news_item.append(item.find(class_='since').get_text(strip=True))
             news_item.append(item.find(class_='title').get_text(strip=True))
-            if class_name == "news relative":
+            if class_name == 'news relative':
                 news_item.append(item.find(class_='annotation hidden-lg').get_text(strip=True))
             else:
-                news_item.append(" ")
+                news_item.append(' ')
             news_item.append(item.find('a').get('href'))
             final_message = final_message + f'({news_item[0]}) {news_item[1]}\n'
-            if news_item[2] != " ":
+            if news_item[2] != ' ':
                 final_message = final_message + f'\t{news_item[2]}\n'
-            final_message = final_message + f'https://tusur.ru{news_item[3]}\n\n'
+            final_message = final_message + f'{url_main}{news_item[3]}\n\n'
             news_item.clear()
-        final_message = final_message + f'Больше информации можно найти здесь: {url_main}'
-
-    # нет доступа к указанному url
+        final_message = final_message + f'Больше информации можно найти здесь: {url}'
     else:
         final_message = 'К сожалению, в данный момент я не могу ничего показать. Проблемы на сайте('
-    # вместо print - отправлять final_message собеседнику
     return final_message
 
 
-def timetable(group, teacher, date):
-    url_timetable = 'https://timetable.tusur.ru'
-    params = None
-    tables_news = requests.get(url_timetable, params=params)
-    if tables_news.status_code == 200:
-        soup = BeautifulSoup(tables_news.text, 'html.parser')
-        items = soup.find_all('', class_='news-page-list-item')
-        new = []
-        for item in items:
-            new.append(item.find())
-            new.append(item.find())
+# Получение URL-адреса страницы с расписанием группы или преподавателя в заданный промежуток времени
+def get_url(item, date):
+    url = requests.get(f'{url_timetable}/searches/common_search?utf8=✓&search%5Bcommon%5D={item}&commit=Найти').url
+    page = requests.get(url)
+    if page.status_code == 200:
+        soup = BeautifulSoup(page.text, 'html.parser')
 
-        final_message = f'{new[0]}\n\n{new[1]}\nБольше новостей Вы можете найти на сайте: {url_timetable}'
-        new.clear()
-    # нет доступа к указанному url
+        current_week = soup.find
+        week = 0
+    # добавить к url номер недели, если дата не попадает на текущую неделю
+    url = url + f'?week_id={week}'
+    return url
+
+
+# group, teacher, date
+# Расписание группы
+def timetable(group, date):
+    url = requests.get(f'{url_timetable}/searches/common_search?utf8=✓&search%5Bcommon%5D={group}&commit=Найти').url \
+          + '?week_id=602'
+    page = requests.get(url)
+    final_message = ''
+    if page.status_code == 200:
+        soup = BeautifulSoup(page.text, 'html.parser')
+        # обработка исключений AttributeError
+        temp = soup.find(class_='col-md-12 search')
+        if temp is not None:
+            final_message = f"{temp.find('h1').get_text(strip=True)}. Не могу найти расписание. " \
+                            f"Пожалуйста, уточните номер группы"
+        else:
+            # headline = soup.find(class_='col-md-12').find('h1').get_text(strip=True)
+            # week = soup.find(class_='tile swiper-slide current day_color_theoretical swiper-slide-next').\
+                # find('a').get_text(strip=True)
+            tables = soup.findAll('tbody')  # .get_text('\n', strip=True)
+            new = []
+            for item in tables:
+                print(item.get_text('\n', strip=True))
+                # new.append(item.find())
+                # new.append(item.find())
+                # final_message = f'{new[0]}\n\n{new[1]}\n'
+                new.clear()
+
     else:
-        final_message = 'Извините, какие-то проблемы с расписанием.'
-    print(final_message)
+        final_message = 'Извините, какие-то проблемы с расписанием. Попробуйте снова чуть позже'
+    return final_message
+
+
+# class_name - одно из значений 'news', 'life-in-tusur', 'events'
+# print(news_events('news'))
+# print(timetable('599-1', '07.03.2022'))
