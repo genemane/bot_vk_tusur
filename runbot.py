@@ -16,156 +16,124 @@ main_keyboard = {
             "action": {
                 "type": "text",
                 "payload": "{\"button\": \"1\"}",
-                "label": "О нас 🎯"
+                "label": "О ТУСУР"
             },
-            "color": "positive"
-        }],
-        [{
-            "action": {
-                "type": "text",
-                "payload": "{\"button\": \"2\"}",
-                "label": "Мероприятия 🍔"
-            },
-            "color": "positive"
+            "color": "primary"
         },
             {
                 "action": {
                     "type": "text",
-                    "payload": "{\"button\": \"3\"}",
-                    "label": "Приложения 🌏"
+                    "payload": "{\"button\": \"2\"}",
+                    "label": "Учеба"
                 },
-                "color": "positive"
-            }
-        ],
+                "color": "primary"
+            }],
         [{
             "action": {
                 "type": "text",
-                "payload": "{\"button\": \"4\"}",
-                "label": "Контакты 📙"
+                "payload": "{\"button\": \"3\"}",
+                "label": "Университетская жизнь"
             },
             "color": "primary"
-        }]
+        },
+            {
+                "action": {
+                    "type": "text",
+                    "payload": "{\"button\": \"4\"}",
+                    "label": "Карьера"
+                },
+                "color": "primary"
+            }],
+        [{
+            "action": {
+                "type": "text",
+                "payload": "{\"button\": \"5\"}",
+                "label": "Справка"
+            },
+            "color": "secondary"
+        },
+            {
+                "action": {
+                    "type": "text",
+                    "payload": "{\"button\": \"6\"}",
+                    "label": "Контакты"
+                },
+                "color": "secondary"
+            }]
     ]
 }
 
 main_keyboard = json.dumps(main_keyboard, ensure_ascii=False).encode('utf-8')
 main_keyboard = str(main_keyboard.decode('utf-8'))
 
-
-about_us_keyboard = {
+info_keyboard = {
     "inline": True,
     "buttons": [
         [{
             "action": {
                 "type": "text",
                 "payload": "{\"button\": \"1\"}",
-                "label": "Основная информация"
+                "label": "Библиотеки"
             },
-            "color": "positive"
+            "color": "primary"
         }],
         [{
             "action": {
                 "type": "text",
                 "payload": "{\"button\": \"2\"}",
-                "label": "Чем мы занимаемся ?"
+                "label": "Столовые"
             },
             "color": "primary"
         },
-        {
-            "action": {
-                "type": "text",
-                "payload": "{\"button\": \"3\"}",
-                "label": "Где мы находимся ?",
-            },
-            "color": "positive"
-        }],
-        [{
-            "action": {
-                "type": "text",
-                "payload": "{\"button\": \"4\"}",
-                "label": "Как попасть в команду ?",
-            },
-            "color": "primary"
-        }],
-        [{
-            "action": {
-                "type": "text",
-                "payload": "{\"button\": \"5\"}",
-                "label": "Контакты 📙",
-            },
-            "color": "secondary"
-        }],
-        [{
-            "action": {
-                "type": "text",
-                "payload": "{\"button\": \"6\"}",
-                "label": "Задать вопрос руководителю проекта",
-            },
-            "color": "negative"
-        }]
-    ],
+            {
+                "action": {
+                    "type": "text",
+                    "payload": "{\"button\": \"3\"}",
+                    "label": "Деканаты"
+                },
+                "color": "primary"
+            }]
+    ]
 }
 
-about_us_keyboard = json.dumps(about_us_keyboard, ensure_ascii=False).encode('utf-8')
-about_us_keyboard = str(about_us_keyboard.decode('utf-8'))
+info_keyboard = json.dumps(info_keyboard, ensure_ascii=False).encode('utf-8')
+info_keyboard = str(info_keyboard.decode('utf-8'))
 
-events_keyboard = {
+learn_keyboard = {
     "inline": True,
     "buttons": [
         [{
             "action": {
                 "type": "callback",
                 "payload": "{\"button\": \"1\"}",
-                "label": "Ближайшие мероприятия"
+                "label": "Успеваемость",
+                "link": "www.tusur.ru"
             },
-            "color": "negative"
+            "color": "primary"
         }],
         [{
             "action": {
                 "type": "callback",
                 "payload": "{\"button\": \"2\"}",
-                "label": "Проведённые мероприятия"
-            },
-            "color": "positive"
-        }],
-        [{
-            "action": {
-                "type": "callback",
-                "payload": "{\"button\": \"3\"}",
-                "label": "Волонтёрство на мероприятие"
+                "label": "Расписание",
+                "link": "www.tusur.ru"
             },
             "color": "primary"
-        }],
-        [{
-            "action": {
-                "type": "callback",
-                "payload": "{\"button\": \"4\"}",
-                "label": "Действующие проекты в НГТУ"
-            },
-            "color": "secondary"
-        }],
-        [{
-            "action": {
-                "type": "callback",
-                "payload": "{\"button\": \"5\"}",
-                "label": "Мероприятия Межвузовского центра"
-            },
-            "color": "positive"
         }]
-    ],
+    ]
 }
 
-events_keyboard = json.dumps(events_keyboard, ensure_ascii=False).encode('utf-8')
-events_keyboard = str(events_keyboard.decode('utf-8'))
+learn_keyboard = json.dumps(learn_keyboard, ensure_ascii=False).encode('utf-8')
+learn_keyboard = str(learn_keyboard.decode('utf-8'))
 
-app_keyboard = {
+life_keyboard = {
     "inline": True,
     "buttons": [
         [{
             "action": {
                 "type": "text",
                 "payload": "{\"button\": \"1\"}",
-                "label": "Узнать точное время 🕐"
+                "label": "Новости"
             },
             "color": "primary"
         }],
@@ -173,31 +141,39 @@ app_keyboard = {
             "action": {
                 "type": "open_link",
                 "payload": "{\"button\": \"2\"}",
-                "label": "Зайти в Google 📟",
-                "link": "https://www.google.com/"
-            }
+                "label": "Мероприятия"
+            },
+            "color": "primary"
         }],
         [{
             "action": {
                 "type": "text",
                 "payload": "{\"button\": \"3\"}",
-                "label": "Узнать погоду ⛅"
+                "label": "Клубы по интересам"
             },
-            "color": "positive"
+            "color": "primary"
         }],
         [{
             "action": {
                 "type": "callback",
                 "payload": "{\"button\": \"4\"}",
-                "label": "Калькулятор 💡"
+                "label": "Возможности"
             },
-            "color": "negative"
+            "color": "primary"
+        }],
+        [{
+            "action": {
+                "type": "callback",
+                "payload": "{\"button\": \"5\"}",
+                "label": "Спорт"
+            },
+            "color": "primary"
         }]
     ]
 }
 
-app_keyboard = json.dumps(app_keyboard, ensure_ascii=False).encode('utf-8')
-app_keyboard = str(app_keyboard.decode('utf-8'))
+life_keyboard = json.dumps(life_keyboard, ensure_ascii=False).encode('utf-8')
+life_keyboard = str(life_keyboard.decode('utf-8'))
 
 contacts_keyboard = {
     "inline": True,
@@ -206,34 +182,34 @@ contacts_keyboard = {
             "action": {
                 "type": "open_link",
                 "payload": "{\"button\": \"1\"}",
-                "label": "Никите",
-                "link": "https://vk.com/nikyats"
+                "label": "Жене",
+                "link": "https://vk.com/genemane"
             }
         },
             {
                 "action": {
                     "type": "open_link",
                     "payload": "{\"button\": \"2\"}",
-                    "label": "Алексею",
-                    "link": "https://vk.com/alex_xs"
+                    "label": "Кате",
+                    "link": "https://vk.com/astro_rin"
                 }
             }],
         [{
             "action": {
                 "type": "open_link",
                 "payload": "{\"button\": \"3\"}",
-                "label": "Илье",
-                "link": "https://vk.com/ki1337ki"
+                "label": "Роме",
+                "link": "https://vk.com/id216917888"
             }
-        }],
-        [{
-            "action": {
-                "type": "open_link",
-                "payload": "{\"button\": \"3\"}",
-                "label": "Связаться с тех. поддержкой",
-                "link": "https://vk.com/setmyaddresspls"
-            }
-        }],
+        },
+            {
+                "action": {
+                    "type": "open_link",
+                    "payload": "{\"button\": \"4\"}",
+                    "label": "Вике",
+                    "link": "https://vk.com/viki_foxxx"
+                }
+            }],
 
     ]
 }
@@ -241,129 +217,69 @@ contacts_keyboard = {
 contacts_keyboard = json.dumps(contacts_keyboard, ensure_ascii=False).encode('utf-8')
 contacts_keyboard = str(contacts_keyboard.decode('utf-8'))
 
-go_answer = {
-    "inline": True,
-    "buttons": [
-        [{
-            "action": {
-                "type": "open_link",
-                "payload": "{\"button\": \"1\"}",
-                "label": "Написать руководителю проекта",
-                "link": "https://vk.com/id8970990"
-            }
-        }]
-    ]
-}
 
-go_answer = json.dumps(go_answer, ensure_ascii=False).encode('utf-8')
-go_answer = str(go_answer.decode('utf-8'))
-
-in_team = {
-    "inline": True,
-    "buttons": [
-        [{
-            "action": {
-                "type": "open_link",
-                "payload": "{\"button\": \"1\"}",
-                "label": "Написать Никите",
-                "link": "https://vk.com/nikyats"
-            }
-        }],
-        [{
-            "action": {
-                "type": "open_link",
-                "payload": "{\"button\": \"2\"}",
-                "label": "Подать заявку на проект 612",
-                "link": "https://project-study.nstu.ru/project?id=612"
-            }
-        }]
-    ]
-}
-
-in_team = json.dumps(in_team, ensure_ascii=False).encode('utf-8')
-in_team = str(in_team.decode('utf-8'))
-
-calc_keyboard = {
-    "inline": True,
-    "buttons": [
-        [{
-            "action": {
-                "type": "text",
-                "payload": "{\"button\": \"1\"}",
-                "label": "Сложить числа"
-            },
-            "color": "positive"
-        }],
-        [{
-            "action": {
-                "type": "text",
-                "payload": "{\"button\": \"2\"}",
-                "label": "Вычесть числа",
-            },
-            "color": "positive"
-        }],
-        [{
-            "action": {
-                "type": "text",
-                "payload": "{\"button\": \"3\"}",
-                "label": "Умножить числа",
-            },
-            "color": "positive"
-        }],
-        [{
-            "action": {
-                "type": "text",
-                "payload": "{\"button\": \"3\"}",
-                "label": "Разделить числа",
-            },
-            "color": "positive"
-        }]
-    ]
-}
-
-calc_keyboard = json.dumps(calc_keyboard, ensure_ascii=False).encode('utf-8')
-calc_keyboard = str(calc_keyboard.decode('utf-8'))
-
-
-def write_msg(user_id, message, key):
+def send(user_id, message, key=None):
     vk.method('messages.send',
               {'user_id': user_id,
                'message': message,
                'keyboard': key,
-               'random_id': random.randint(0, 2048)})
+               'random_id': random.randint(0, 213144)})
 
 
 vk = vk_api.VkApi(token=token)
 
-
 longpoll = VkLongPoll(vk)
-
 
 try:
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW:
             if event.to_me:
-                if event.text.lower() == "о нас 🎯":
-                    write_msg(event.user_id, "Немного о нашем проекте", about_us_keyboard)
-                elif event.text.lower() == "мероприятия 🍔":
-                    write_msg(event.user_id, "Что ты хочешь узнать?", events_keyboard)
-                elif event.text.lower() == "приложения 🌏":
-                    write_msg(event.user_id, "Посмотри, что есть здесь!", app_keyboard)
-                elif event.text.lower() == "контакты 📙":
-                    write_msg(event.user_id, "По любым вопросам можешь обращаться к:", contacts_keyboard)
-                elif event.text.lower() == "задать вопрос руководителю проекта":
-                    write_msg(event.user_id, news_events("news relative"), go_answer) #fergtergsergtertetertertertet
-                elif event.text.lower() == "калькулятор 💡":
-                    write_msg(event.user_id, "В разработке...", calc_keyboard)
-                # elif event.text == " ".join(re.findall('\d{2}', event.text)):
-                #     write_msg(event.user_id, "Отлично, мы здесь", calc_keyboard)
-                elif event.text.lower() == "как попасть в команду ?":
-                    write_msg(event.user_id, "Напиши координатору проекта - Никите\n"
-                                             "или перейди на сайт проектной деятельности,\n"
-                                             "найди проект номер 612 и подай заявку", in_team)
+                if event.text.lower() == "о тусур":
+                    send(event.user_id, "Немного о нашем университете:", info_keyboard)
+                elif event.text.lower() == "учеба":
+                    send(event.user_id, "Вот, что могу показать:", learn_keyboard)
+                elif event.text.lower() == "университетская жизнь":
+                    send(event.user_id, "О чём ты хочешь узнать?", life_keyboard)
+                elif event.text.lower() == "контакты":
+                    send(event.user_id, "По любым вопросам можешь обращаться к:", contacts_keyboard)
+                elif event.text.lower() == "библиотеки":
+                    send(event.user_id, "Наши библиотеки:")
+                elif event.text.lower() == "столовые":
+                    send(event.user_id, "Наши столовые:")
+                elif event.text.lower() == "деканаты":
+                    send(event.user_id, "Выберите факультет:")
+                elif event.text.lower() == "успеваемость":
+                    send(event.user_id, "Здесь вы можете узнать вашу успеваемость:\n www.ocenka.tusur.ru")
+                elif event.text.lower() == "расписание":
+                    send(event.user_id, "Введите группу или преподавателя:")
+                elif event.text.lower() == "новости":
+                    send(event.user_id, news_events("news relative"))
+                elif event.text.lower() == "мероприятия":
+                    send(event.user_id, news_events("events relative"))
+                elif event.text.lower() == "клубы по интересам":
+                    send(event.user_id, "*тут про клубы*")
+                elif event.text.lower() == "возможности":
+                    send(event.user_id, "*тут о возможностях*")
+                elif event.text.lower() == "спорт":
+                    send(event.user_id, "*тут о спорте*")
+                elif event.text.lower() == "карьера":
+                    send(event.user_id, "*тут о карьере*")
+                elif event.text.lower() == "справка":
+                    send(event.user_id,
+                         "Я - бот из ТУСУР - Томского государственного университета систем управления и "
+                         "радиоэлектроники. Меня создали студенты факультета вычислительных систем, чтобы собрать всю "
+                         "самую основную, необходимую информацию для студента.\n "
+                         "Что я могу рассказать:\n"
+                         "1) Расположение и время работы корпусов библиотеки, столовых вуза, деканатов\n"
+                         "Начало->Главное меню->О ТУСУР\n"
+                         "2) Расписание занятий (можно подписаться на ежедневную отправку расписания), успеваемость\n"
+                         "Начало->Главное меню->Учёба\n"
+                         "3) Новости, мероприятия, клубы, возможности, спорт\n"
+                         "Начало->Главное меню->Университетская жизнь\n"
+                         "4) Карьера\n"
+                         "Начало->Главное меню->Карьера)\n")
                 else:
-                    write_msg(event.user_id, event.text, main_keyboard)
+                    send(event.user_id, "Не понимаю тебя :(", main_keyboard)
 
 except Exception as e:
     print(e)
-
