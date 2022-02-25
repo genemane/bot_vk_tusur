@@ -4,7 +4,6 @@ from vk_api.longpoll import VkLongPoll, VkEventType
 
 import random
 
-import parsing
 from parsing import news_events
 
 token = "f64dac7a2454d26a07f4a7081417fa6ba1ffd3cc4b3d13b83162f353c3dd780c752d5c342e3555e8790fe"
@@ -104,19 +103,17 @@ learn_keyboard = {
     "buttons": [
         [{
             "action": {
-                "type": "callback",
+                "type": "text",
                 "payload": "{\"button\": \"1\"}",
                 "label": "Успеваемость",
-                "link": "www.tusur.ru"
             },
             "color": "primary"
         }],
         [{
             "action": {
-                "type": "callback",
+                "type": "text",
                 "payload": "{\"button\": \"2\"}",
-                "label": "Расписание",
-                "link": "www.tusur.ru"
+                "label": "Расписание"
             },
             "color": "primary"
         }]
@@ -139,7 +136,7 @@ life_keyboard = {
         }],
         [{
             "action": {
-                "type": "open_link",
+                "type": "text",
                 "payload": "{\"button\": \"2\"}",
                 "label": "Мероприятия"
             },
@@ -155,7 +152,7 @@ life_keyboard = {
         }],
         [{
             "action": {
-                "type": "callback",
+                "type": "text",
                 "payload": "{\"button\": \"4\"}",
                 "label": "Возможности"
             },
@@ -163,7 +160,7 @@ life_keyboard = {
         }],
         [{
             "action": {
-                "type": "callback",
+                "type": "text",
                 "payload": "{\"button\": \"5\"}",
                 "label": "Спорт"
             },
