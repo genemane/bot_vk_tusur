@@ -250,9 +250,9 @@ try:
                 elif event.text.lower() == "расписание":
                     send(event.user_id, "Введите группу или преподавателя:")
                 elif event.text.lower() == "новости":
-                    send(event.user_id, news_events("news relative"))
+                    send(event.user_id, news_events("news"))
                 elif event.text.lower() == "мероприятия":
-                    send(event.user_id, news_events("events relative"))
+                    send(event.user_id, news_events("events"))
                 elif event.text.lower() == "клубы по интересам":
                     send(event.user_id, "*тут про клубы*")
                 elif event.text.lower() == "возможности":
