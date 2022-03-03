@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 import re
 
-url_main = 'https://tusur.ru'  # Главная
+url_main = 'https://tusur.ru'  # Главная страница
 url_cstv = 'https://cstv.tusur.ru'  # Карьера
 url_sport = 'https://sport.tusur.ru'  # Спорт в ТУСУРе
 url_timetable = 'https://timetable.tusur.ru'  # Расписание занятий
