@@ -33,8 +33,8 @@ def news_events(class_name):
         url = url_cstv
     else:
         class_name = f'{class_name} relative'
-    page = requests.get(url, headers={'User-Agent': UserAgent().chrome})
-    if page.status_code == 200:
+    try:
+        page = requests.get(url, headers={'User-Agent': UserAgent().chrome})
         soup = BeautifulSoup(page.text, 'html.parser')
         items = soup.find(class_=class_name).find_all(class_=subclass_name, limit=5)
         url_tmp = url
@@ -58,16 +58,17 @@ def news_events(class_name):
             final_message += f'Источник: {url}{news_item[3]}\n\n'
             news_item.clear()
         final_message += f'Больше информации можно найти здесь: {url_tmp}'
-    else:
-        final_message = 'К сожалению, в данный момент я не могу ничего показать. Проблемы на сайте('
+    except Exception as e:
+        print(e)
+        final_message = f'{e}\nК сожалению, в данный момент я не могу ничего показать. Проблемы на сайте('
     return final_message
 
 
 # Расписание занятий группы/преподавателя
 def timetable(search):
-    url = requests.get(f'{url_timetable}/searches/common_search?utf8=✓&search%5Bcommon%5D={search}&commit=Найти').url
-    page = requests.get(url, headers={'User-Agent': UserAgent().chrome})
-    if page.status_code == 200:
+    try:
+        url = requests.get(f'{url_timetable}/searches/common_search?utf8=✓&search%5Bcommon%5D={search}&commit=Найти').url
+        page = requests.get(url, headers={'User-Agent': UserAgent().chrome})
         soup = BeautifulSoup(page.text, 'html.parser')
         if soup.find(class_='col-md-12 search') is None:
             timetables = soup.find(class_='timetable_wrapper')
@@ -90,13 +91,15 @@ def timetable(search):
                                 time = lesson.find('span')
                                 temp = time.get_text(strip=True)
                                 time = f"{temp} - {time.find_next('span').get_text(strip=True)}"
-                                time = f'{schedule.get(time)}, {time}'
+                                time = f'{schedule[time]}, {time}'
                                 discipline = info.find(class_='discipline').get_text(strip=True)
                                 kind = info.find(class_='kind').get_text(strip=True)
                                 group = info.find(class_='group').get_text(strip=True)
                                 aud = info.find(class_='auditoriums').get_text(strip=True)
                                 note = info.find(class_='note')
-                                final_message += f'\n⏳ {time}\n📚 {discipline} {kind}\n👤 {group}\n'
+                                final_message += f'\n⏳ {time}\n📚 {discipline} {kind}\n'
+                                if group != '':
+                                    final_message += f'👤 {group}\n'
                                 if aud != '':
                                     final_message += f'🚪 {aud}\n'
                                 if note is not None:
@@ -107,6 +110,7 @@ def timetable(search):
                 final_message += f'\n\n{empty_week.get_text(strip=True)}'
         else:
             final_message = 'Не могу найти расписание. Пожалуйста, уточни номер группы или фамилию и имя преподавателя'
-    else:
+    except Exception as e:
+        print(e)
         final_message = 'Извини, какие-то проблемы с расписанием. Попробуй снова чуть позже'
     return final_message
