@@ -67,23 +67,31 @@ info_keyboard = {
                 "label": "Библиотеки"
             },
             "color": "primary"
-        }],
-        [{
+        },
+        {
             "action": {
                 "type": "text",
                 "payload": "{\"button\": \"2\"}",
                 "label": "Столовые"
             },
             "color": "primary"
+        }],
+        [{
+            "action": {
+                "type": "text",
+                "payload": "{\"button\": \"3\"}",
+                "label": "Деканаты"
+            },
+            "color": "primary"
         },
-            {
-                "action": {
-                    "type": "text",
-                    "payload": "{\"button\": \"3\"}",
-                    "label": "Деканаты"
-                },
-                "color": "primary"
-            }]
+        {
+            "action": {
+                "type": "text",
+                "payload": "{\"button\": \"4\"}",
+                "label": "Корпуса"
+            },
+            "color": "primary"
+        }]
     ]
 }
 
@@ -292,6 +300,67 @@ faculties_keyboard = str(faculties_keyboard.decode('utf-8'))
 faculties_keyboard_1 = json.dumps(faculties_keyboard_1, ensure_ascii=False).encode('utf-8')
 faculties_keyboard_1 = str(faculties_keyboard_1.decode('utf-8'))
 
+corps_keyboard = {
+    "inline": True,
+    "buttons": [
+        [{
+            "action": {
+                "type": "text",
+                "payload": "{\"button\": \"1\"}",
+                "label": "ГК"
+            },
+            "color": "primary"
+        },
+            {
+                "action": {
+                    "type": "text",
+                    "payload": "{\"button\": \"2\"}",
+                    "label": "УЛК"
+                },
+                "color": "primary"
+            }]
+        ,
+        [{
+            "action": {
+                "type": "text",
+                "payload": "{\"button\": \"3\"}",
+                "label": "ФЭТ"
+            },
+            "color": "primary"
+        }
+            ,
+            {
+                "action": {
+                    "type": "text",
+                    "payload": "{\"button\": \"4\"}",
+                    "label": "РК"
+                },
+                "color": "primary"
+            }]
+        ,
+        [{
+            "action": {
+                "type": "text",
+                "payload": "{\"button\": \"5\"}",
+                "label": "Бизнес-инкубатор 'Дружба'"
+            },
+            "color": "primary"
+        }
+            ,
+            {
+                "action": {
+                    "type": "text",
+                    "payload": "{\"button\": \"6\"}",
+                    "label": "СК"
+                },
+                "color": "primary"
+            }]
+    ]
+}
+
+corps_keyboard = json.dumps(corps_keyboard, ensure_ascii=False).encode('utf-8')
+corps_keyboard = str(corps_keyboard.decode('utf-8'))
+
 
 def send(user_id, message, key=None):
     vk.method('messages.send',
@@ -308,7 +377,9 @@ longpoll = VkLongPoll(vk)
 stage = 0
 search = ''
 fac_f = open("adresses and shedules/faculties.txt", "r", encoding="utf-8")
+crps_f = open("adresses and shedules/corps.txt", "r", encoding="utf-8")
 fac_all = fac_f.readlines()
+crps_all = crps_f.readlines()
 
 try:
     for event in longpoll.listen():
@@ -343,8 +414,10 @@ try:
                     send(event.user_id, "Столовые ТУСУР\n"
                                         "пн – сб с 09:00 до 18:00\n"
                                         "Главный корпус, ФЭТ, РК, УЛК")
+                elif event.text.lower() == "корпуса":
+                    send(event.user_id, "Вот все корпуса:", corps_keyboard)
                 elif event.text.lower() == "библиотеки":
-                    send(event.user_id, "Библиотеки ТУСУР\n"
+                    send(event.user_id, "Библиотека ТУСУР\n"
                                         "Пн. – пт.: 9:00 – 18:00\n"
                                         "Перерыв с 13:15 до 13:45\n"
                                         "Cб., вс.: выходные дни\n"
@@ -365,7 +438,8 @@ try:
                     stage = 1
                 elif event.text.lower() == "по преподавателю":
                     send(event.user_id,
-                         "Всё могу, только назови преподавателя\n Мне достаточно фамилии, но для точности результата мне лучше знать полные инициалы\n Чьё расписание ищем?")
+                         "Всё могу, только назови преподавателя\n Мне достаточно фамилии, но для точности результата "
+                         "мне лучше знать полные инициалы\n Чьё расписание ищем?")
                     stage = 1
                 elif event.text.lower() == "новости":
                     send(event.user_id, news_events("news"))
@@ -465,6 +539,44 @@ try:
                     for x in range(fac_current, fac_current + 6):
                         fac_msg = fac_msg + "".join(fac_all[x])
                     send(event.user_id, fac_msg)
+
+                # Далее корпуса
+                elif event.text.lower() == "гк":
+                    crps_current = 0
+                    crps_msg = ""
+                    for x in range(crps_current, crps_current + 7):
+                        crps_msg = crps_msg + "".join(crps_all[x])
+                    send(event.user_id, crps_msg)
+                elif event.text.lower() == "улк":
+                    crps_current = 7
+                    crps_msg = ""
+                    for x in range(crps_current, crps_current + 7):
+                        crps_msg = crps_msg + "".join(crps_all[x])
+                    send(event.user_id, crps_msg)
+                elif event.text.lower() == "рк":
+                    crps_current = 21
+                    crps_msg = ""
+                    for x in range(crps_current, crps_current + 7):
+                        crps_msg = crps_msg + "".join(crps_all[x])
+                    send(event.user_id, crps_msg)
+                elif event.text.lower() == "фэт":
+                    crps_current = 28
+                    crps_msg = ""
+                    for x in range(crps_current, crps_current + 7):
+                        crps_msg = crps_msg + "".join(crps_all[x])
+                    send(event.user_id, crps_msg)
+                elif event.text.lower() == "бизнес-инкубатор 'дружба'":
+                    crps_current = 21
+                    crps_msg = ""
+                    for x in range(crps_current, crps_current + 7):
+                        crps_msg = crps_msg + "".join(crps_all[x])
+                    send(event.user_id, crps_msg)
+                elif event.text.lower() == "ск":
+                    crps_current = 35
+                    crps_msg = ""
+                    for x in range(crps_current, crps_current + 3):
+                        crps_msg = crps_msg + "".join(crps_all[x])
+                    send(event.user_id, crps_msg)
                 elif sender:
                     send(event.user_id, "Я тебя не понял :(\n Уточни команду!", main_keyboard)
                     sender = 0
