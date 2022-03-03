@@ -330,7 +330,10 @@ try:
                     sender = 0
         if event.type == VkEventType.MESSAGE_NEW and stage == 0:
             if event.to_me:
-                if event.text.lower() == "о тусур":
+                if event.text.lower() == "начать":
+                    send(event.user_id, "Привет! Я бот, который поможет тебе узнать всякое о нашем университете.\n"
+                                        "Что тебя интересует?", main_keyboard)
+                elif event.text.lower() == "о тусур":
                     send(event.user_id, "Немного о нашем университете:", info_keyboard)
                 elif event.text.lower() == "учеба":
                     send(event.user_id, "Вот, что могу показать:", learn_keyboard)
@@ -346,12 +349,15 @@ try:
                                         "Перерыв с 13:15 до 13:45\n"
                                         "Cб., вс.: выходные дни\n"
                                         "ул. Красноармейская, 146 (УЛК))\n"
-                                        "На карте: https://www.google.com/maps/place/ТУСУР+Учебно-лабораторный+Корпус/@56.4540991,84.9758276,17z/data=!3m1!4b1!4m5!3m4!1s0x4326ecae4a242255:0xedadec8893875cac!8m2!3d56.4540991!4d84.9780163")
+                                        "На карте: https://www.google.com/maps/place"
+                                        "/ТУСУР+Учебно-лабораторный+Корпус/@56.4540991,84.9758276,"
+                                        "17z/data=!3m1!4b1!4m5!3m4!1s0x4326ecae4a242255:0xedadec8893875cac!8m2!3d56"
+                                        ".4540991!4d84.9780163")
                 elif event.text.lower() == "деканаты":
-                    send(event.user_id, "Выберите факультет: ", faculties_keyboard)
+                    send(event.user_id, "Выбери факультет: ", faculties_keyboard)
                     send(event.user_id, "Так же заочный и дистанционный: ", faculties_keyboard_1)
                 elif event.text.lower() == "успеваемость":
-                    send(event.user_id, "Здесь вы можете узнать вашу успеваемость:\n www.ocenka.tusur.ru")
+                    send(event.user_id, "Здесь ты можешь узнать успеваемость:\n www.ocenka.tusur.ru")
                 elif event.text.lower() == "расписание":
                     send(event.user_id, "Что ищем?", schedule_keyboard)
                 elif event.text.lower() == "по группе":
