@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from fake_useragent import UserAgent
 import re
 
 url_main = 'https://tusur.ru'  # Главная
@@ -32,7 +33,7 @@ def news_events(class_name):
         url = url_cstv
     else:
         class_name = f'{class_name} relative'
-    page = requests.get(url)
+    page = requests.get(url, headers={'User-Agent': UserAgent().chrome})
     if page.status_code == 200:
         soup = BeautifulSoup(page.text, 'html.parser')
         items = soup.find(class_=class_name).find_all(class_=subclass_name, limit=5)
@@ -65,7 +66,7 @@ def news_events(class_name):
 # Расписание занятий группы/преподавателя
 def timetable(search):
     url = requests.get(f'{url_timetable}/searches/common_search?utf8=✓&search%5Bcommon%5D={search}&commit=Найти').url
-    page = requests.get(url)
+    page = requests.get(url, headers={'User-Agent': UserAgent().chrome})
     if page.status_code == 200:
         soup = BeautifulSoup(page.text, 'html.parser')
         if soup.find(class_='col-md-12 search') is None:
