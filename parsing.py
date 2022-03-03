@@ -60,7 +60,7 @@ def news_events(class_name):
         final_message += f'Больше информации можно найти здесь: {url_tmp}'
     except Exception as e:
         print(e)
-        final_message = f'{e}\nК сожалению, в данный момент я не могу ничего показать. Проблемы на сайте('
+        final_message = f'Код: {page.status_code}\n{e}\nК сожалению, в данный момент я не могу ничего показать. Проблемы на сайте('
     return final_message
 
 
@@ -114,3 +114,6 @@ def timetable(search):
         print(e)
         final_message = 'Извини, какие-то проблемы с расписанием. Попробуй снова чуть позже'
     return final_message
+
+
+# print(news_events('news'))
