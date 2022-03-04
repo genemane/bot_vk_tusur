@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-from fake_useragent import UserAgent
 import re
 
 url_main = 'https://tusur.ru'  # Главная страница
@@ -15,6 +14,10 @@ schedule = {
     '16:45 - 18:20': '5-я пара',
     '18:30 - 20:05': '6-я пара',
     '20:15 - 21:50': '7-я пара'
+}
+headers = {
+    'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+    'Referer': 'https://www.google.com'
 }
 
 
@@ -33,10 +36,6 @@ def news_events(class_name):
         url = url_cstv
     else:
         class_name = f'{class_name} relative'
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
-        'Referer': 'https://www.google.com'
-    }
     try:
         page = requests.get(url, headers=headers)
         soup = BeautifulSoup(page.text, 'html.parser')
@@ -64,15 +63,16 @@ def news_events(class_name):
         final_message += f'Больше информации можно найти здесь: {url_tmp}'
     except Exception as e:
         print(e)
-        final_message = f'{soup.find(class_=class_name)}Код: {page.status_code}\n{e}\nК сожалению, в данный момент я не могу это показать. Попробуй снова чуть позже'
+        final_message = 'К сожалению, в данный момент я не могу это показать. Попробуй снова чуть позже'
     return final_message
 
 
 # Расписание занятий группы/преподавателя
 def timetable(search):
     try:
-        url = requests.get(f'{url_timetable}/searches/common_search?utf8=✓&search%5Bcommon%5D={search}&commit=Найти').url
-        page = requests.get(url, headers={'User-Agent': UserAgent().chrome})
+        url = requests.get(
+            f'{url_timetable}/searches/common_search?utf8=✓&search%5Bcommon%5D={search}&commit=Найти').url
+        page = requests.get(url, headers=headers)
         soup = BeautifulSoup(page.text, 'html.parser')
         if soup.find(class_='col-md-12 search') is None:
             timetables = soup.find(class_='timetable_wrapper')
