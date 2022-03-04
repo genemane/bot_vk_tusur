@@ -33,8 +33,12 @@ def news_events(class_name):
         url = url_cstv
     else:
         class_name = f'{class_name} relative'
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+        'Referer': 'https://www.google.com'
+    }
     try:
-        page = requests.get(url, headers={'User-Agent': UserAgent().chrome})
+        page = requests.get(url, headers=headers)
         soup = BeautifulSoup(page.text, 'html.parser')
         items = soup.find(class_=class_name).find_all(class_=subclass_name, limit=5)
         url_tmp = url
@@ -60,7 +64,7 @@ def news_events(class_name):
         final_message += f'Больше информации можно найти здесь: {url_tmp}'
     except Exception as e:
         print(e)
-        final_message = f'Код: {page.status_code}\n{e}\nК сожалению, в данный момент я не могу ничего показать. Проблемы на сайте('
+        final_message = f'{soup.find(class_=class_name)}Код: {page.status_code}\n{e}\nК сожалению, в данный момент я не могу это показать. Попробуй снова чуть позже'
     return final_message
 
 
@@ -114,6 +118,3 @@ def timetable(search):
         print(e)
         final_message = 'Извини, какие-то проблемы с расписанием. Попробуй снова чуть позже'
     return final_message
-
-
-# print(news_events('news'))
