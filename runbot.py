@@ -416,7 +416,7 @@ try:
                                         "Главный корпус, ФЭТ, РК, УЛК")
                 elif event.text.lower() == "корпуса":
                     send(event.user_id, "Вот все корпуса:", corps_keyboard)
-                elif event.text.lower() == "библиотеки":
+                elif event.text.lower() == "библиотека":
                     send(event.user_id, "Библиотека ТУСУР\n"
                                         "Пн. – пт.: 9:00 – 18:00\n"
                                         "Перерыв с 13:15 до 13:45\n"
@@ -577,7 +577,7 @@ try:
                         crps_msg = crps_msg + "".join(crps_all[x])
                     send(event.user_id, crps_msg)
                 elif sender:
-                    send(event.user_id, "Я тебя не понял :(\n Уточни команду!", main_keyboard)
+                    send(event.user_id, "Я тебя не понял :(\nУточни команду!", main_keyboard)
                     sender = 0
 
 except Exception as e:
